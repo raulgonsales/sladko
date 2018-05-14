@@ -10411,7 +10411,53 @@ a.text-dark:focus {
   }
 }
 
-header {
+header .container {
   outline: 1px solid black;
+  height: 400px;
+}
+
+footer {
+  background: #f98aee;
+}
+
+footer .container {
+  height: 60px;
+  outline: 1px solid black;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.reviews {
+  background: #f98aee;
+}
+
+.reviews .review {
+  border-top: 2px dashed #f98aee;
+  margin-bottom: 20px;
+  overflow: hidden;
+  padding-top: 10px;
+}
+
+.reviews .review .review-person-photo {
+  height: 80px;
+  float: left;
+  border: 1px solid black;
+  width: 80px;
+}
+
+.reviews .review .review-comment {
+  margin-left: 100px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.content-block {
+  padding: 20px 0;
+}
+
+header {
+  background: url(/images/layer.png?084c8a19752e1cd1c2eba10974938a78);
 }
 

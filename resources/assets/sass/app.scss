@@ -9,7 +9,18 @@
 @import '~bootstrap/scss/bootstrap';
 
 @import "parts/header";
+@import "parts/footer";
+@import "parts/contacts";
+@import "parts/reviews";
+
+h2 {
+  text-align: center;
+}
+
+.content-block {
+  padding: 20px 0;
+}
 
 header {
-  outline: 1px solid black;
+  background: url("../images/layer.png");
 }

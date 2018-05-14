@@ -3,12 +3,10 @@
     @include('includes.head')
 </head>
 <body>
-    <div class="container header">
-        @include('includes.header')
-    </div>
+    @include('includes.header')
 
-    <div class="container">
-        @yield('content')
-    </div>
+    @yield('content')
+
+    @include('includes.footer')
 </body>
 </html>

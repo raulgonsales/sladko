@@ -1,0 +1,21 @@
+.reviews {
+  background: $basic-color2;
+
+  .review {
+    border-top: 2px dashed $basic-color2;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-top: 10px;
+    
+    .review-person-photo {
+      height: 80px;
+      float: left;
+      border: 1px solid black;
+      width: 80px;
+    }
+
+    .review-comment {
+      margin-left: 100px;
+    }
+  }
+}
