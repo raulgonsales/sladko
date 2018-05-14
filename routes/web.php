@@ -11,6 +11,7 @@
 |
 */
 
+\Illuminate\Support\Facades\Log::emergency("lelelle");
 Route::get('/', function () {
     return view('welcome');
 });
