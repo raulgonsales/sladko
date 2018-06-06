@@ -3,8 +3,10 @@
 @section('title', 'Main Page')
 
 @section('content')
-    <div class="container">
-        <p>Main page content</p>
+    <div class="products">
+        <div class="container">
+            @include('includes.main-products')
+        </div>
     </div>
     <div class="reviews content-block">
         <div class="container">

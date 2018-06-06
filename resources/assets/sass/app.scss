@@ -12,9 +12,14 @@
 @import "parts/footer";
 @import "parts/contacts";
 @import "parts/reviews";
+@import "parts/main-products";
 
 .hidden {
   display: none;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 h2 {
