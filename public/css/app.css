@@ -10411,11 +10411,67 @@ a.text-dark:focus {
   }
 }
 
+header {
+  background: url(/images/layer.png?084c8a19752e1cd1c2eba10974938a78);
+}
+
 header .container {
   height: 400px;
   outline: 1px solid black;
   padding: 0;
   position: relative;
+}
+
+header .container .header-info {
+  text-align: center;
+  overflow: hidden;
+}
+
+header .container .header-info > div {
+  display: inline-block;
+}
+
+header .container .header-info .logo {
+  width: 300px;
+  height: 300px;
+  margin-top: 26px;
+}
+
+header .container .header-info .company-info-left {
+  float: left;
+  -ms-text-align-last: left;
+  text-align-last: left;
+}
+
+header .container .header-info .company-info-left ul {
+  padding-top: 25px;
+  padding-left: 20px;
+}
+
+header .container .header-info .company-info-left ul li a {
+  color: #4d2526;
+  font-size: 20px;
+}
+
+header .container .header-info .company-info-right {
+  float: right;
+  text-align: right;
+  padding-top: 20px;
+  padding-right: 20px;
+}
+
+header .container .header-info .company-info-right > div {
+  margin-bottom: 15px;
+}
+
+header .container .header-info .company-info-right > div * {
+  color: #4d2526;
+  vertical-align: middle;
+}
+
+header .container .header-info .company-info-right,
+header .container .header-info .company-info-left {
+  width: 150px;
 }
 
 header .container .navbar {
@@ -10438,6 +10494,14 @@ header .container .navbar .navbar-nav > .nav-item {
   display: table-cell;
 }
 
+header .container .navbar .navbar-nav > .nav-item .nav-link {
+  color: #4d2526;
+}
+
+header .container .navbar .navbar-nav > .nav-item:hover {
+  background: #a5539a;
+}
+
 header .container .navbar .navbar-nav > .nav-item:first-child {
   border-radius: 15px 0 0 0;
 }
@@ -10453,6 +10517,7 @@ header .container .navbar .navbar-nav > .nav-item a {
   font-weight: bold;
   padding: 5px;
   text-align: center;
+  text-decoration: none;
 }
 
 footer {
@@ -10470,6 +10535,16 @@ footer .container {
   background: #f98aee;
 }
 
+.reviews .show-more-reviews {
+  text-align: center;
+}
+
+.reviews .show-more-reviews button {
+  background: none;
+  border: 1px solid #4d2526;
+  cursor: pointer;
+}
+
 .reviews .review {
   border-top: 2px dashed #f98aee;
   margin-bottom: 20px;
@@ -10477,27 +10552,38 @@ footer .container {
   padding-top: 10px;
 }
 
-.reviews .review .review-person-photo {
-  height: 80px;
-  float: left;
-  border: 1px solid black;
-  width: 80px;
+.reviews .review .review-date {
+  color: #464752;
+  font-style: italic;
+  font-size: 12px;
+}
+
+.reviews .review .review-author {
+  font-style: italic;
 }
 
 .reviews .review .review-comment {
-  margin-left: 100px;
+  padding-left: 10px;
+}
+
+.hidden {
+  display: none;
 }
 
 h2 {
   text-align: center;
 }
 
-.content-block {
-  padding: 20px 0;
+a {
+  text-decoration: none;
 }
 
-header {
-  background: url(/images/layer.png?084c8a19752e1cd1c2eba10974938a78);
+li {
+  list-style: none;
+}
+
+.content-block {
+  padding: 20px 0;
 }
 
 .dropdown-submenu {

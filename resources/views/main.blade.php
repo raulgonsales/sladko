@@ -7,7 +7,16 @@
         <p>Main page content</p>
     </div>
     <div class="reviews content-block">
-        @include('includes.reviews')
+        <div class="container">
+            <h2>Reviews</h2>
+            <div id="reviews_items">
+                {{--Rendered by ajax in ajax controller--}}
+            </div>
+            <div class="show-more-reviews">
+                <button id="moreReviews">Show more</button>
+                <button id="closeReviews" class="hidden">Close</button>
+            </div>
+        </div>
     </div>
     <div class="contacts content-block">
         @include('includes.contacts')

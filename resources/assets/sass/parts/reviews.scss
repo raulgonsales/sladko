@@ -1,21 +1,34 @@
 .reviews {
   background: $basic-color2;
 
+  .show-more-reviews {
+    text-align: center;
+
+    button {
+      background: none;
+      border: 1px solid #4d2526;
+      cursor: pointer;
+    }
+  }
+
   .review {
     border-top: 2px dashed $basic-color2;
     margin-bottom: 20px;
     overflow: hidden;
     padding-top: 10px;
-    
-    .review-person-photo {
-      height: 80px;
-      float: left;
-      border: 1px solid black;
-      width: 80px;
+
+    .review-date {
+      color: #464752;
+      font-style: italic;
+      font-size: 12px;
+    }
+
+    .review-author {
+      font-style: italic;
     }
 
     .review-comment {
-      margin-left: 100px;
+      padding-left: 10px;
     }
   }
 }

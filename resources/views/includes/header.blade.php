@@ -1,5 +1,39 @@
 <header>
     <div class="container">
+        <div class="header-info">
+            <div class="company-info-left">
+                <ul>
+                    <li><a href="#">Akce</a></li>
+                    <li><a href="#">Kontakt</a></li>
+                    <li><a href="#">Pro nas</a></li>
+                </ul>
+            </div>
+            <div class="logo">
+                <a href="">
+                    <img src="{{ asset('images/1-1.png') }}" width="300px" height="300px" alt="">
+                </a>
+            </div>
+            <div class="company-info-right">
+                <div>
+                    <a href="#">
+                        <span>32523523523</span>
+                        <i style="font-size: 35px" class="fas fa-phone-square"></i>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <span>/sladkobrno</span>
+                        <i style="font-size: 35px" class="fab fa-facebook"></i>
+                    </a>
+                </div>
+                <div>
+                    <a href="#">
+                        <span>/sladkobrno</span>
+                        <i style="font-size: 35px" class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
         <nav class="navbar navbar-expand-lg navbar-light">
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">

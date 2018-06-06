@@ -13,16 +13,24 @@
 @import "parts/contacts";
 @import "parts/reviews";
 
+.hidden {
+  display: none;
+}
+
 h2 {
   text-align: center;
 }
 
-.content-block {
-  padding: 20px 0;
+a {
+  text-decoration: none;
 }
 
-header {
-  background: url("../images/layer.png");
+li {
+  list-style: none;
+}
+
+.content-block {
+  padding: 20px 0;
 }
 
 .dropdown-submenu {

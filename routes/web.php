@@ -16,3 +16,5 @@ Route::get('/', 'MainController@showMainPage')->name('main');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::post('/ajax/loadReviews', 'AjaxController@loadReviews');

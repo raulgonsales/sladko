@@ -1,35 +1,12 @@
-<div class="container">
-    <h2>Reviews</h2>
+@foreach($reviews as $review)
     <div class="review">
-        <div class="review-person-photo">
-
+        <div class="review-info">
+            Datum: <span class="review-date">{{ $review['created_at'] }}</span><br>
+            Autor: <span class="review-author">{{ $review['name'] }}</span>
         </div>
         <div class="review-comment">
-            <p>Great cakes</p>
+            <p>{{ $review['text'] }}</p>
         </div>
+        <hr>
     </div>
-    <div class="review">
-        <div class="review-person-photo">
-
-        </div>
-        <div class="review-comment">
-            <p>Great cakes</p>
-        </div>
-    </div>
-    <div class="review">
-        <div class="review-person-photo">
-
-        </div>
-        <div class="review-comment">
-            <p>Great cakes</p>
-        </div>
-    </div>
-    <div class="review">
-        <div class="review-person-photo">
-
-        </div>
-        <div class="review-comment">
-            <p>Great cakes</p>
-        </div>
-    </div>
-</div>
+@endforeach

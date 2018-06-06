@@ -1,10 +1,63 @@
 header {
+  background: url("../../images/layer.png");
 
   .container {
     height: 400px;
     outline: 1px solid black;
     padding: 0;
     position: relative;
+
+    .header-info {
+      text-align: center;
+      overflow: hidden;
+
+      & > div {
+        display: inline-block;
+      }
+
+      .logo {
+        width: 300px;
+        height: 300px;
+        margin-top: 26px;
+      }
+
+      .company-info-left {
+        float: left;
+        -ms-text-align-last: left;
+        text-align-last: left;
+
+        ul {
+          padding-top: 25px;
+          padding-left: 20px;
+
+          li a {
+            color: #4d2526;
+            font-size: 20px;
+          }
+        }
+      }
+
+      .company-info-right {
+        float: right;
+        text-align: right;
+        padding-top: 20px;
+        padding-right: 20px;
+
+        & > div {
+          margin-bottom: 15px;
+        }
+
+        & > div * {
+          color: #4d2526;
+          vertical-align: middle;
+        }
+      }
+
+      .company-info-right,
+      .company-info-left {
+        width: 150px;
+      }
+    }
 
     .navbar {
       bottom: 0;
@@ -24,6 +77,14 @@ header {
         margin-right: 2px;
         display: table-cell;
 
+        .nav-link {
+          color: #4d2526;
+        }
+
+        &:hover {
+          background: #a5539a;
+        }
+
         &:first-child {
           border-radius: 15px 0 0 0;
         }
@@ -39,6 +100,7 @@ header {
           font-weight: bold;
           padding: 5px;
           text-align: center;
+          text-decoration: none;
         }
       }
     }
