@@ -10579,6 +10579,8 @@ footer .container {
   float: left;
   margin-bottom: 40px;
   padding: 20px 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .products .container .products-wrapper .product-wrapper:hover {
@@ -10634,6 +10636,12 @@ footer .container {
   font-size: 20px;
   width: 100%;
   padding: 5px 0;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+.products .container .products-wrapper .product-wrapper .product .to-basket .to-basket-button:hover {
+  background: #a5539a;
 }
 
 .hidden {

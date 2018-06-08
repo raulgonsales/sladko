@@ -18,95 +18,90 @@ class CategoriesTableSeeder extends Seeder
 
             'children' => [
                 [
-                    'name' => 'Category 1.1',
-                    'description' => 'Category 1.1 description',
+                    'name' => 'Cakes',
+                    'description' => 'All cakes',
                     'active' => '1',
 
                     'children' => [
                         [
-                            'name' => 'Category 1.1.1',
-                            'description' => 'Category 1.1.1 description',
+                            'name' => 'Birthday Cakes',
+                            'description' => 'Cakes for birthday celebration',
                             'active' => '1',
                         ],
                         [
-                            'name' => 'Category 1.1.2',
-                            'description' => 'Category 1.1.2 description',
+                            'name' => 'Wedding cakes',
+                            'description' => 'For weddings',
                             'active' => '1',
                         ],
                     ],
                 ],
                 [
-                    'name' => 'Category 1.2',
-                    'description' => 'Category 1.2 description',
+                    'name' => 'Cupcakes',
+                    'description' => 'Category for cupcakes',
                     'active' => '1',
                 ],
                 [
-                    'name' => 'Category 1.3',
-                    'description' => 'Category 1.3 description',
+                    'name' => 'Pancakes',
+                    'description' => 'Category for pancakes',
                     'active' => '1',
 
                     'children' => [
                         [
-                            'name' => 'Category 1.3.1',
-                            'description' => 'Category 1.3.1 description',
+                            'name' => 'Wedding pancakes',
+                            'description' => 'Birthday pancakes',
                             'active' => '1'
                         ],
                         [
-                            'name' => 'Category 1.3.2',
-                            'description' => 'Category 1.3.2 description',
+                            'name' => 'Holiday pancakes',
+                            'description' => 'Holiday pancakes',
                             'active' => '1',
 
                             'children' => [
                                 [
-                                    'name' => 'Category 1.3.2.1',
-                                    'description' => 'Category 1.3.2.1 description',
+                                    'name' => 'New Year pancakes',
+                                    'description' => 'New Year pancakes',
                                     'active' => '1',
 
                                     'children' => [
                                         [
-                                            'name' => 'Category 1.3.2.1.1',
-                                            'description' => 'Category 1.3.2.1.1 description',
+                                            'name' => 'Snow pancakes',
+                                            'description' => 'Snow',
                                             'active' => '1',
                                         ],
                                         [
-                                            'name' => 'Category 1.3.2.1.2',
+                                            'name' => 'Santa Claus pancakes',
                                             'description' => 'Category 1.3.2.1.2 description',
-                                            'active' => '1',
-                                        ],
-                                        [
-                                            'name' => 'Category 1.3.2.1.3',
-                                            'description' => 'Category 1.3.2.1.3 description',
                                             'active' => '1',
                                         ]
                                     ]
                                 ],
                                 [
-                                    'name' => 'Category 1.3.2.2',
-                                    'description' => 'Category 1.3.2.1 description',
+                                    'name' => 'Fourth July pancakes',
+                                    'description' => 'Fourth July pancakes',
                                     'active' => '1'
                                 ]
                             ]
                         ],
                         [
-                            'name' => 'Category 1.3.3',
-                            'description' => 'Category 1.3.3 description',
+                            'name' => 'Other pancakes',
+                            'description' => 'Other pancakes',
                             'active' => '1'
                         ]
                     ]
                 ],
                 [
-                    'name' => 'Category 1.4',
-                    'description' => 'Category 1.2 description',
+                    'name' => 'Candy',
+                    'description' => 'Category for candies',
                     'active' => '1',
                 ],
                 [
-                    'name' => 'Category 1.5',
-                    'description' => 'Category 1.2 description',
+                    'name' => 'Meal',
+                    'description' => 'Category for meal',
                     'active' => '1',
                 ],
                 [
-                    'name' => 'Category 1.6',
-                    'description' => 'Category 1.2 description',
+                    'name' => 'Other products',
+                    'description' => 'Category for other products',
                     'active' => '1',
                 ],
             ],
