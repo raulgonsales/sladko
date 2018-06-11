@@ -22,19 +22,35 @@ const app = new Vue({
 });
 
 $(document).ready(function () {
-	$('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
-		if (!$(this).next().hasClass('show')) {
-			$(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
-		}
-		var $subMenu = $(this).next(".dropdown-menu");
-		$subMenu.toggleClass('show');
+	//timeout to hide dropdown menu
+  var hideDropdownTimeout;
 
+  //on hover to dropdown link
+  $('.dropdown a.dropdown-toggle').hover(function (e) {
+    //if we`ve hovered to dropdown link from opened dropdown menu
+    if($(this).next().hasClass('show')) {
+      //do not hide submenu
+      clearTimeout(hideDropdownTimeout);
+    }
 
-		$(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
-			$('.dropdown-submenu .show').removeClass("show");
-		});
+    //show submenu
+    $(this).next(".dropdown-menu").addClass('show');
+  }, function () {
+    var that = $(this);
 
+    //set timeout to hide submenu
+    hideDropdownTimeout = setTimeout(function() {
+      that.next(".dropdown-menu").removeClass('show');
+    }, 100);
+  });
 
-		return false;
-	});
+  //on hover to submenu block
+  $('.dropdown-menu').hover(function () {
+    clearTimeout(hideDropdownTimeout);
+  }, function () {
+    var that = $(this);
+    hideDropdownTimeout = setTimeout(function() {
+      that.removeClass('show');
+    }, 100);
+  });
 });
