@@ -9,7 +9,7 @@
                 </ul>
             </div>
             <div class="logo">
-                <a href="">
+                <a href="/">
                     <img src="{{ asset('images/1-1.png') }}" width="300px" height="300px" alt="">
                 </a>
             </div>

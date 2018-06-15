@@ -9,5 +9,8 @@
   });
 </script>
 <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-<script src="{{ asset('js/ajax.js') }}"></script>
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+@yield('pagestyle')
+<script src="{{ asset('js/ajax.js') }}"></script>
+
+@yield('pagescript')

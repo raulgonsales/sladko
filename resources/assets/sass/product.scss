@@ -1,0 +1,15 @@
+.product-page {
+
+  .product-info {
+    overflow: hidden;
+
+    .product-gallery {
+      float: left;
+    }
+
+    .product-description {
+      float: left;
+      padding-left: 30px;
+    }
+  }
+}
