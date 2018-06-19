@@ -7,14 +7,12 @@
 
     <!-- Slides Container -->
     <div data-u="slides" class="slides">
-        <div>
-            <img data-u="image" src="../img/gallery/720x480/001.jpg" />
-            <img data-u="thumb" src="../img/gallery/720x480/001.jpg" />
-        </div>
-        <div>
-            <img data-u="image" src="../img/gallery/720x480/002.jpg" />
-            <img data-u="thumb" src="../img/gallery/720x480/002.jpg" />
-        </div>
+        @foreach($images as $image)
+            <div>
+                <img data-u="image" src="{{ $image['image'] }}" alt="{{ $image['image_descr'] }}"/>
+                <img data-u="thumb" src="{{ $image['thumb'] }}" alt="{{ $image['image_descr'] }}"/>
+            </div>
+        @endforeach
     </div>
 
     <!--#region Thumbnail Navigator Skin Begin -->

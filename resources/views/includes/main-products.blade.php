@@ -1,10 +1,16 @@
 <div class="products-wrapper">
     @foreach($newProducts as $product)
-        <div class="product-wrapper col-xl-3 col-lg-4 col-md-6 col-sm-6 col-6">
+        <div class="product-wrapper col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
             <div class="product">
                 <a href="/product/{{ $product->id }}">
                     <div class="product-image">
-                        <img src="images/shvarcvaldskii-vishnevyi-tort_1396253792_1_max.jpg" alt="">
+                        @if(count($product->images)
+                            && \Illuminate\Support\Facades\Storage::disk('public')->exists($product->images[0]->url))
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url($product->images[0]->url) }}"
+                                 alt="{{ $product->images[0]->description }}">
+                        @else
+                            <img src="{{ \Illuminate\Support\Facades\Storage::url("/images/not-photo.png") }}">
+                        @endif
                     </div>
                     <div class="product-description">
                         <p class="product-name">{{ $product->name }}</p>

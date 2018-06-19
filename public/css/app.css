@@ -10492,6 +10492,8 @@ header .container .navbar .navbar-nav > .nav-item {
   color: #4d2526;
   margin-right: 2px;
   display: table-cell;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 header .container .navbar .navbar-nav > .nav-item .nav-link {
@@ -10578,6 +10580,7 @@ footer .container {
 .products .container .products-wrapper .product-wrapper {
   float: left;
   margin-bottom: 40px;
+  min-height: 400px;
   padding: 20px 0;
   -webkit-transition: 0.3s;
   transition: 0.3s;
@@ -10644,6 +10647,23 @@ footer .container {
   background: #a5539a;
 }
 
+.product-page .product-info {
+  overflow: hidden;
+}
+
+.product-page .product-info .product-gallery {
+  float: left;
+}
+
+.product-page .product-info .product-description {
+  float: left;
+  padding-left: 30px;
+}
+
+.container {
+  padding: 20px 15px;
+}
+
 .hidden {
   display: none;
 }
@@ -10673,12 +10693,8 @@ li {
   position: relative;
 }
 
-.dropdown-submenu a::after {
-  -webkit-transform: rotate(-90deg);
-          transform: rotate(-90deg);
-  position: absolute;
-  right: 6px;
-  top: .8em;
+.dropdown-toggle::after {
+  display: none;
 }
 
 .dropdown-submenu .dropdown-menu {

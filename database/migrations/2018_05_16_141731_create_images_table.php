@@ -17,6 +17,7 @@ class CreateImagesTable extends Migration
             $table->increments('id');
             $table->text('url');
             $table->text('description');
+            $table->boolean('product_preview');
             $table->timestamps();
         });
     }
