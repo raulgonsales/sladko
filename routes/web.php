@@ -17,6 +17,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/product/{id}', 'ProductController@index')->name('product')->where('id', '[0-9]+');
+Route::get('/category/{id}', 'CategoryController@index')->name('category')->where('id', '[0-9]+');
 
 Route::group(['prefix' => 'ajax'], function () {
     Route::post('/loadReviews', 'AjaxReviewsController@loadReviews');

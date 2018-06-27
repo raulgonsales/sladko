@@ -16,7 +16,8 @@ class ProductImageService
         if(!$images || !count($images)) {
             $imagesCollection[] = [
                 'image' => Storage::url('images/not-photo.png'),
-                'thumb' => Storage::url('images/not-photo_thumb.png')
+                'thumb' => Storage::url('images/not-photo_thumb.png'),
+                'image_descr' => 'Not image'
             ];
 
             return $imagesCollection;

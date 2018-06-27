@@ -1,4 +1,4 @@
-<title>App Name - @yield('title')</title>
+<title>@yield('title')</title>
 <script src="{{ asset('js/app.js') }}"></script>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>

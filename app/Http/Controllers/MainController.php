@@ -30,7 +30,7 @@ class MainController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index() {
-        $retData['newProducts'] = $this->product->getNewProducts(8);
+        $retData['products'] = $this->product->getNewProducts(8);
 
         return view('main', $retData);
     }

@@ -40,7 +40,7 @@
                     @foreach($categories as $category)
                         @if(count($category->children) > 0)
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="http://example.com" aria-haspopup="true" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle" href="/category/{{ $category->id }}" aria-haspopup="true" aria-expanded="false">
                                     {{ $category->name }}
                                 </a>
                                 <ul class="dropdown-menu">
@@ -49,7 +49,7 @@
                             </li>
                         @else
                             <li class="nav-item active">
-                                <a class="nav-link" href="#">{{ $category->name }}</a>
+                                <a class="nav-link" href="/category/{{ $category->id }}">{{ $category->name }}</a>
                             </li>
                         @endif
                     @endforeach
