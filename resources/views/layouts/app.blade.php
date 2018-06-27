@@ -8,12 +8,6 @@
         Sladko Brno
     </a>
     <ul class="navbar-nav flex-row mr-lg-0">
-        <li class="nav-item">
-            <a class="nav-link pr-2" href="#">Shopping cart</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link pr-2" href="#">My profile</a>
-        </li>
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle mr-3 mr-lg-0"
                id="navbarDropdownMenuLink"
@@ -24,7 +18,7 @@
                 <span class="caret">User</span>
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" href="">User</a>
+                <a class="dropdown-item" href="">My profile</a>
                 <a class="dropdown-item" href="">Logout</a>
             </div>
         </li>

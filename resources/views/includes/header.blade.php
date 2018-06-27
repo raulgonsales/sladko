@@ -14,6 +14,12 @@
                 </a>
             </div>
             <div class="company-info-right">
+                <div id="shopping_cart">
+                    <a href="#" title="Shopping cart">
+                        <span>0 Kc</span>
+                        <i style="font-size: 35px" class="fas fa-shopping-cart"></i>
+                    </a>
+                </div>
                 <div>
                     <a href="#">
                         <span>32523523523</span>
