@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\QueryException;
 
 class Product extends Model
 {
@@ -17,12 +16,21 @@ class Product extends Model
     }
 
     /**
-     * Relationship with Image model
+     * Relationship with Image model.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function images() {
         return $this->belongsToMany('App\Image');
+    }
+
+    /**
+     * Relationship to Session model.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sessions() {
+        return $this->belongsToMany('App\Session');
     }
 
     /**

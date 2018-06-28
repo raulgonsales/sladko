@@ -10415,6 +10415,22 @@ header {
   background: url(/images/layer.png?084c8a19752e1cd1c2eba10974938a78);
 }
 
+header #shopping_cart {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+}
+
+header #shopping_cart a {
+  display: block;
+  color: #000;
+}
+
+header #shopping_cart .cart-params {
+  float: left;
+}
+
 header .container {
   height: 400px;
   outline: 1px solid black;
@@ -10702,5 +10718,9 @@ li {
   left: 100%;
   margin-left: .1rem;
   margin-right: .1rem;
+}
+
+.navbar-expand-md .navbar-nav .dropdown-menu {
+  position: absolute !important;
 }
 

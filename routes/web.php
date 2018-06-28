@@ -21,4 +21,5 @@ Route::get('/category/{id}', 'CategoryController@index')->name('category')->wher
 
 Route::group(['prefix' => 'ajax'], function () {
     Route::post('/loadReviews', 'AjaxReviewsController@loadReviews');
+    Route::post('/cart/add', 'AjaxCartController@addProduct')->name('cart.add');
 });

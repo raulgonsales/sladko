@@ -21,6 +21,22 @@ function loadReviews(limit, startedDate) {
   })
 }
 
+function addToCart(id) {
+  var promise = $.ajax({
+    type: 'POST',
+    url: '/ajax/cart/add',
+    data: {productId: parseInt(id)},
+    dataType: 'json'
+  });
+
+  promise.done(function (data) {
+    var cart = $(document.getElementById('shopping_cart'));
+
+    cart.find('.total-count span').html(data.totalQuantity);
+    cart.find('.total-price span').html(data.totalPrice);
+  });
+}
+
 $(document).ready(function () {
   loadReviews(2, false);
 
@@ -38,4 +54,8 @@ $(document).ready(function () {
     document.getElementById('closeReviews').style.display = 'none';
     loadReviews(2, false);
   });
+
+  $('.to-basket').on('click', '.to-basket-button', function () {
+    addToCart($(this).data('id'));
+  })
 });

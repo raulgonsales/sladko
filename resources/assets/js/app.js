@@ -102,7 +102,6 @@ $(document).ready(function () {
   $('.to-basket-button').on('click', function () {
     var cart = $(document.getElementById('shopping_cart'));
     var imgtodrag = $(this).parents('.product').find("img").eq(0);
-    console.log(cart.offset());
     if (imgtodrag) {
       var imgclone = imgtodrag.clone()
       .offset({
@@ -119,7 +118,7 @@ $(document).ready(function () {
       .appendTo($('body'))
       .animate({
         'top': cart.offset().top + 10,
-        'left': cart.offset().left + 75,
+        'left': cart.offset().left + 20,
         'width': 75,
         'height': 75
       }, 1000)

@@ -1,6 +1,22 @@
 header {
   background: url("../../images/layer.png");
 
+  #shopping_cart {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    padding: 5px;
+
+    a {
+      display: block;
+      color: #000;
+    }
+
+    .cart-params {
+      float: left;
+    }
+  }
+
   .container {
     height: 400px;
     outline: 1px solid black;
