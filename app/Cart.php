@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Session as SessionModel;
@@ -80,7 +79,7 @@ class Cart
     public function add($product, $id) {
         $storedProduct = [
             'quantity' => 0,
-            'price' => $product->price,
+            'totalProductsPrice' => $product->price,
             'product' => $product
         ];
 
@@ -89,7 +88,7 @@ class Cart
         }
 
         $storedProduct['quantity']++;
-        $storedProduct['price'] = $product->price * $storedProduct['quantity'];
+        $storedProduct['totalProductsPrice'] = $product->price * $storedProduct['quantity'];
         $this->products[$id] = $storedProduct;
         $this->totalQuantity++;
         $this->totalPrice += $product->price;
@@ -129,6 +128,13 @@ class Cart
     }
 
     /**
+     * Actualize product prices in cart
+     */
+    public function actualizeProductsPrice() {
+
+    }
+
+    /**
      * Getter
      *
      * @param $property
@@ -141,6 +147,9 @@ class Cart
                 break;
             case 'totalPrice':
                 return $this->totalPrice;
+                break;
+            case 'products':
+                return $this->products;
                 break;
         }
 

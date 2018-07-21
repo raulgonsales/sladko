@@ -10676,6 +10676,76 @@ footer .container {
   padding-left: 30px;
 }
 
+.cart .container {
+  overflow: hidden;
+}
+
+.cart .container .cart-products table {
+  width: 100%;
+}
+
+.cart .container .cart-products table td,
+.cart .container .cart-products table th {
+  padding: 10px;
+}
+
+.cart .container .cart-products table thead tr {
+  height: 50px;
+}
+
+.cart .container .cart-products table tbody tr {
+  height: 50px;
+  border: 1px solid #888;
+}
+
+.cart .container .cart-products table .product-quantity div {
+  display: inline-block;
+}
+
+.cart .container .cart-products table .product-quantity input {
+  border: 1px solid #888;
+  width: 50px;
+  padding-left: 5px;
+  height: 30px;
+  outline: none;
+}
+
+.cart .container .cart-products table .product-quantity .plus-product,
+.cart .container .cart-products table .product-quantity .minus-product {
+  cursor: pointer;
+  outline: none;
+  background: none;
+  height: 30px;
+  width: 30px;
+  border: 1px solid #888;
+  padding: 3px;
+  margin-left: -5px;
+}
+
+.cart .container .cart-summary {
+  margin-top: 10px;
+  float: right;
+  padding: 0;
+}
+
+.cart .container .cart-summary table {
+  width: 100%;
+}
+
+.cart .container .cart-summary table tr {
+  height: 50px;
+  border: 1px solid #888;
+}
+
+.cart .container .cart-summary table td,
+.cart .container .cart-summary table th {
+  padding: 5px;
+}
+
+.cart .container .control {
+  clear: both;
+}
+
 .container {
   padding: 20px 15px;
 }
