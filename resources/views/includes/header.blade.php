@@ -58,7 +58,7 @@
         </nav>
     </div>
     <div id="shopping_cart">
-        <a href="#" title="Shopping cart">
+        <a href="{{ route('cart') }}" title="Shopping cart">
             <div class="cart-params">
                 <span class="total-count"><span>{{ $cart['totalQuantity'] }}</span> item</span><br>
                 <span class="total-price"><span>{{ $cart['totalPrice'] }}</span> Kc</span>

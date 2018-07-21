@@ -1,3 +1,9 @@
+/**
+ * Load reviews.
+ *
+ * @param limit
+ * @param startedDate
+ */
 function loadReviews(limit, startedDate) {
   var promise = $.ajax({
     type: 'POST',
@@ -21,6 +27,10 @@ function loadReviews(limit, startedDate) {
   })
 }
 
+/**
+ * Add product to cart.
+ * @param id Id of product
+ */
 function addToCart(id) {
   var promise = $.ajax({
     type: 'POST',
@@ -57,5 +67,5 @@ $(document).ready(function () {
 
   $('.to-basket').on('click', '.to-basket-button', function () {
     addToCart($(this).data('id'));
-  })
+  });
 });

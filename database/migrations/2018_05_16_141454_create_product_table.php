@@ -17,6 +17,7 @@ class CreateProductTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('price');
+            $table->string('nettoPrice');
             $table->text('description');
             $table->timestamps();
         });
