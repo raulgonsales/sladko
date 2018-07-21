@@ -14,8 +14,8 @@ class ViewComposerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->composeCategoriesNavigation();
-        $this->composeCart();
+//        $this->composeCategoriesNavigation();
+//        $this->composeCart();
     }
 
     /**
