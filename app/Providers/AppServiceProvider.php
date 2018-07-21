@@ -22,7 +22,6 @@ class AppServiceProvider extends ServiceProvider
 //            dump($query->sql);
 //            dump($query->bindings);
 //        });
-        Schema::defaultStringLength(191);
     }
 
     /**
