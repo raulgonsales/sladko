@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use App\Delivery;
 use App\Product;
 use App\Services\CartService;
 use Illuminate\Database\QueryException;
@@ -22,6 +23,14 @@ class AjaxCartController extends AjaxController
      */
     protected $product;
 
+
+    /**
+     * Delivery model.
+     *
+     * @var
+     */
+    protected $delivery;
+
     protected $cartBlockViewNames = [
         'cartProducts' => 'includes.cart.cart-product-table'
     ];
@@ -37,12 +46,14 @@ class AjaxCartController extends AjaxController
      * AjaxCartController constructor.
      *
      * @param Product $product
+     * @param Delivery $delivery
      * @param CartService $cartService
      * @internal param CartService $cartService
      */
-    public function __construct(Product $product, CartService $cartService)
+    public function __construct(Product $product, Delivery $delivery, CartService $cartService)
     {
         $this->product = $product;
+        $this->delivery = $delivery;
         $this->cartService = $cartService;
     }
 
@@ -57,6 +68,11 @@ class AjaxCartController extends AjaxController
             return false;
         }
 
+        $retData = [];
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
         try {
             $product = $this->product->getProductInfo($request->productId, [
                 'id',
@@ -64,21 +80,166 @@ class AjaxCartController extends AjaxController
                 'price',
                 'nettoPrice'
             ]);
-        } catch (QueryException$e) {
+        } catch (QueryException $e) {
             Log::emergency("Cannot add product to cart");
             return Response::json([]);
         }
 
-        $oldCart = Session::has('cart') ? Session::get('cart') : null;
-
-        $cart = new Cart($oldCart);
-        $cart->add($product[0], $product[0]->id );
+        $cart->add($product[0], $product[0]->id);
 
         $request->session()->put('cart', $cart);
 
+        $retData['totalQuantity'] = $cart->get('totalQuantity');
+        $retData['totalPrice'] = $cart->get('totalPrice');
+        $retData['totalDPH'] = $this->cartService->getTotalDPH($cart->get('totalPrice'));
+        $retData['totalNettoPrice'] = $this->cartService->calcNettoPrice($cart->get('totalPrice'));
+
+        if (($cartProduct = $cart->getCartProduct($request->productId))) {
+            $retData['totalProductsGroupPrice'] = $cartProduct['totalProductsPrice'];
+            $retData['totalProductsGroupNettoPrice'] = $cartProduct['totalProductsGroupNettoPrice'];
+            $retData['totalProductsGroupQuantity'] = $cartProduct['quantity'];
+        }
+
         return Response::json([
-            'totalQuantity' => $cart->get('totalQuantity'),
-            'totalPrice' => $cart->get('totalPrice')
+            'cartData' => $retData
+        ]);
+    }
+
+    /**
+     * Delete product from cart.
+     *
+     * @param Request $request
+     * @return bool|\Illuminate\Http\JsonResponse
+     */
+    public function deleteProduct(Request $request) {
+        if (!$request->ajax()) {
+            return false;
+        }
+
+        $retData = [];
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
+        try {
+            $product = $this->product->getProductInfo($request->productId, [
+                'id',
+                'name',
+                'price',
+                'nettoPrice'
+            ]);
+        } catch (QueryException $e) {
+            Log::emergency("Cannot add product to cart");
+            return Response::json([]);
+        }
+
+        $cart->delete($product[0], $product[0]->id);
+
+        $request->session()->put('cart', $cart);
+
+        $retData['totalQuantity'] = $cart->get('totalQuantity');
+        $retData['totalPrice'] = $cart->get('totalPrice');
+        $retData['totalNettoPrice'] = $this->cartService->calcNettoPrice($cart->get('totalPrice'));
+        $retData['totalDPH'] = $this->cartService->getTotalDPH($cart->get('totalPrice'));
+
+        if (($cartProduct = $cart->getCartProduct($request->productId))) {
+            $retData['totalProductsGroupPrice'] = $cartProduct['totalProductsPrice'];
+            $retData['totalProductsGroupNettoPrice'] = $cartProduct['totalProductsGroupNettoPrice'];
+            $retData['totalProductsGroupQuantity'] = $cartProduct['quantity'];
+        }
+
+        return Response::json([
+            'cartData' => $retData
+        ]);
+    }
+
+    /**
+     * Changes product quantity in cart.
+     *
+     * @param Request $request
+     * @return bool|\Illuminate\Http\JsonResponse
+     */
+    public function changeProductQuantity(Request $request) {
+        if (!$request->ajax()) {
+            return false;
+        }
+
+        $retData = [];
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
+        try {
+            $product = $this->product->getProductInfo($request->productId, [
+                'id',
+                'name',
+                'price',
+                'nettoPrice'
+            ]);
+        } catch (QueryException $e) {
+            Log::emergency("Cannot add product to cart");
+            return Response::json([]);
+        }
+
+        $cart->change($product[0], $product[0]->id, $request->newQuantity);
+
+        $request->session()->put('cart', $cart);
+
+        $retData['totalQuantity'] = $cart->get('totalQuantity');
+        $retData['totalPrice'] = $cart->get('totalPrice');
+        $retData['totalNettoPrice'] = $this->cartService->calcNettoPrice($cart->get('totalPrice'));
+        $retData['totalDPH'] = $this->cartService->getTotalDPH($cart->get('totalPrice'));
+
+        if (($cartProduct = $cart->getCartProduct($request->productId))) {
+            $retData['totalProductsGroupPrice'] = $cartProduct['totalProductsPrice'];
+            $retData['totalProductsGroupNettoPrice'] = $cartProduct['totalProductsGroupNettoPrice'];
+            $retData['totalProductsGroupQuantity'] = $cartProduct['quantity'];
+        }
+
+        return Response::json([
+            'cartData' => $retData
+        ]);
+    }
+
+    /**
+     * Deletes product row from cart
+     *
+     * @param Request $request
+     * @return bool|\Illuminate\Http\JsonResponse
+     */
+    public function deleteProductRow(Request $request) {
+        if (!$request->ajax()) {
+            return false;
+        }
+
+        $retData = [];
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
+        try {
+            $product = $this->product->getProductInfo($request->productId, [
+                'id',
+                'name',
+                'price',
+                'nettoPrice'
+            ]);
+        } catch (QueryException $e) {
+            Log::emergency("Cannot add product to cart");
+            return Response::json([]);
+        }
+
+        $cart->deleteRow($product[0]->id);
+
+        $request->session()->put('cart', $cart);
+
+        $retData['totalQuantity'] = $cart->get('totalQuantity');
+        $retData['totalPrice'] = $cart->get('totalPrice');
+        $retData['totalNettoPrice'] = $this->cartService->calcNettoPrice($cart->get('totalPrice'));
+        $retData['totalDPH'] = $this->cartService->getTotalDPH($cart->get('totalPrice'));
+
+        return Response::json([
+            'cartData' => $retData
         ]);
     }
 
@@ -109,19 +270,25 @@ class AjaxCartController extends AjaxController
     public function loadCartProductsBlock() {
         $retData = [];
 
-        if (!$oldCart = Session::get('cart')) {
-            $retData['noProducts'] = true;
-        }
+        $oldCart = Session::get('cart');
 
         $cart = new Cart($oldCart);
         $cart->actualizeProductsPrice();
         $retData['cartProducts'] = $cart->get('products');
 
+        $retData['deliveryMethods'] = $this->delivery->getActiveDeliveryMethods();
+
+        if ($deliveryMethod = $cart->get('deliveryMethod')) {
+            $retData['deliveryPrice'] = $deliveryMethod->price;
+            $retData['chosenDeliveryMethod'] = $deliveryMethod->id;
+        } else {
+            $retData['deliveryPrice'] = 0;
+        }
 
         $retData['totalPrice'] = $cart->get('totalPrice');
         $retData['totalQuantity'] = $cart->get('totalQuantity');
         $retData['totalDPH'] = $this->cartService->getTotalDPH($cart->get('totalPrice'));
-        $retData['totalPriceWithoutDPH'] = $this->cartService->getTotalPriceWithoutDPH($cart->get('totalPrice'));
+        $retData['totalNettoPrice'] = $this->cartService->calcNettoPrice($cart->get('totalPrice'));
 
         try {
             if (!view()->exists($this->cartBlockViewNames['cartProducts'])) {
@@ -137,6 +304,48 @@ class AjaxCartController extends AjaxController
         return Response::json([
             'success' => true,
             'html' => $returnHtml
+        ]);
+    }
+
+    /**
+     * Sets delivery method.
+     *
+     * @param Request $request
+     */
+    public function setDeliveryMethod(Request $request) {
+        if (!$request->ajax()) {
+            return false;
+        }
+
+        $retData = [];
+
+        $oldCart = Session::has('cart') ? Session::get('cart') : null;
+        $cart = new Cart($oldCart);
+
+        try {
+            $method = $this->delivery->getChosenDeliveryMethod($request->methodId);
+        } catch (QueryException $e) {
+            Log::emergency("Cannot set delivery method");
+            return Response::json([]);
+        }
+
+        $cart->setDeliveryMethod($method[0]);
+
+        $request->session()->put('cart', $cart);
+
+        $retData['totalQuantity'] = $cart->get('totalQuantity');
+        $retData['totalPrice'] = $cart->get('totalPrice');
+        $retData['totalNettoPrice'] = $this->cartService->calcNettoPrice($cart->get('totalPrice'));
+        $retData['totalDPH'] = $this->cartService->getTotalDPH($cart->get('totalPrice'));
+
+        if ($deliveryMethod = $cart->get('deliveryMethod')) {
+            $retData['deliveryPrice'] = $deliveryMethod->price;
+        } else {
+            $retData['deliveryPrice'] = 0;
+        }
+
+        return Response::json([
+            'cartData' => $retData
         ]);
     }
 

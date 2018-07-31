@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Services\CartService;
 use Illuminate\Database\QueryException;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -31,6 +32,13 @@ class Cart
     protected $totalPrice = 0;
 
     /**
+     * Delivery price.
+     *
+     * @var int
+     */
+    protected $deliveryMethod = null;
+
+    /**
      * Session model instance.
      *
      * @var
@@ -45,6 +53,13 @@ class Cart
     protected $sessionId;
 
     /**
+     * Cart service instance
+     *
+     * @var
+     */
+    protected $cartService;
+
+    /**
      * Cart constructor.
      *
      * @param $oldCart
@@ -55,9 +70,11 @@ class Cart
             $this->products = $oldCart->products;
             $this->totalPrice = $oldCart->totalPrice;
             $this->totalQuantity = $oldCart->totalQuantity;
+            $this->deliveryMethod = $oldCart->deliveryMethod;
         }
 
         $this->sessionId = Session::getId();
+        $this->cartService = new CartService();
     }
 
     /**
@@ -80,6 +97,7 @@ class Cart
         $storedProduct = [
             'quantity' => 0,
             'totalProductsPrice' => $product->price,
+            'totalProductsGroupNettoPrice' => $this->cartService->calcNettoPrice($product->price),
             'product' => $product
         ];
 
@@ -88,7 +106,13 @@ class Cart
         }
 
         $storedProduct['quantity']++;
-        $storedProduct['totalProductsPrice'] = $product->price * $storedProduct['quantity'];
+        $storedProduct['totalProductsPrice'] = $this->cartService->calcGroupProductPrice(
+            $product->price,
+            $storedProduct['quantity']
+        );
+        $storedProduct['totalProductsGroupNettoPrice'] = $this->cartService->calcNettoPrice(
+            $storedProduct['totalProductsPrice']
+        );
         $this->products[$id] = $storedProduct;
         $this->totalQuantity++;
         $this->totalPrice += $product->price;
@@ -99,6 +123,123 @@ class Cart
             $this->updateSessionProductQuantity($userSession, $product, $storedProduct['quantity']);
         } catch (QueryException $e) {
             Log::emergency($e->getMessage());
+        }
+    }
+
+    /**
+     * Deletes product from cart.
+     *
+     * @param $product
+     * @param $id
+     * @internal param $item
+     */
+    public function delete($product, $id) {
+        $storedProduct = [
+            'quantity' => 0,
+            'totalProductsPrice' => $product->price,
+            'totalProductsGroupNettoPrice' => $this->cartService->calcNettoPrice($product->price),
+            'product' => $product
+        ];
+
+        if($this->products && array_key_exists($id, $this->products)) {
+            $storedProduct = $this->products[$id];
+        }
+
+        $storedProduct['quantity']--;
+        $storedProduct['totalProductsPrice'] = $this->cartService->calcGroupProductPrice(
+            $product->price,
+            $storedProduct['quantity']
+        );
+        $storedProduct['totalProductsGroupNettoPrice'] = $this->cartService->calcNettoPrice(
+            $storedProduct['totalProductsPrice']
+        );
+        $this->products[$id] = $storedProduct;
+        $this->totalQuantity--;
+        $this->totalPrice -= $product->price;
+
+        try {
+            $userSession = $this->updateUserDatabaseSession();
+
+            $this->updateSessionProductQuantity($userSession, $product, $storedProduct['quantity']);
+        } catch (QueryException $e) {
+            Log::emergency($e->getMessage());
+        }
+    }
+
+    /**
+     * Changes product quantity.
+     *
+     * @param $product
+     * @param $id
+     * @param $newQuantity
+     */
+    public function change($product, $id, $newQuantity) {
+        $storedProduct = [
+            'quantity' => 0,
+            'totalProductsPrice' => $product->price,
+            'totalProductsGroupNettoPrice' => $this->cartService->calcNettoPrice($product->price),
+            'product' => $product
+        ];
+
+        if($this->products && array_key_exists($id, $this->products)) {
+            $storedProduct = $this->products[$id];
+        }
+
+        $storedProduct['quantity'] = $newQuantity;
+        $storedProduct['totalProductsPrice'] = $this->cartService->calcGroupProductPrice(
+            $product->price,
+            $storedProduct['quantity']
+        );
+        $storedProduct['totalProductsGroupNettoPrice'] = $this->cartService->calcNettoPrice(
+            $storedProduct['totalProductsPrice']
+        );
+
+        $this->products[$id] = $storedProduct;
+        $this->recalculateProductQuantity();
+        $this->recalculateTotalPrice();
+
+        try {
+            $userSession = $this->updateUserDatabaseSession();
+
+            $this->updateSessionProductQuantity($userSession, $product, $storedProduct['quantity']);
+        } catch (QueryException $e) {
+            Log::emergency($e->getMessage());
+        }
+    }
+
+    /**
+     * Deletes product row from cart.
+     *
+     * @param $id
+     * @internal param $product
+     */
+    public function deleteRow($id) {
+        unset($this->products[$id]);
+        $this->recalculateTotalPrice();
+        $this->recalculateProductQuantity();
+    }
+
+    /**
+     * Recalculates total product quantity.
+     */
+    public function recalculateProductQuantity() {
+        $this->totalQuantity = 0;
+        foreach ($this->products as $product) {
+            $this->totalQuantity += $product['quantity'];
+        }
+    }
+
+    /**
+     * Recalculates total cart price.
+     */
+    public function recalculateTotalPrice() {
+        $this->totalPrice = 0;
+        foreach ($this->products as $product) {
+            $this->totalPrice += $product['totalProductsPrice'];
+        }
+
+        if ($this->deliveryMethod) {
+            $this->totalPrice += $this->deliveryMethod->price;
         }
     }
 
@@ -135,6 +276,21 @@ class Cart
     }
 
     /**
+     * Loads product by Id from cart
+     *
+     * @param $id
+     * @return mixed
+     */
+    public function getCartProduct($id) {
+        return $this->products[$id] ? $this->products[$id] : null;
+    }
+
+    public function setDeliveryMethod($method) {
+        $this->deliveryMethod = $method;
+        $this->recalculateTotalPrice();
+    }
+
+    /**
      * Getter
      *
      * @param $property
@@ -150,6 +306,9 @@ class Cart
                 break;
             case 'products':
                 return $this->products;
+                break;
+            case 'deliveryMethod':
+                return $this->deliveryMethod;
                 break;
         }
 

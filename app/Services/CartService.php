@@ -2,8 +2,6 @@
 namespace App\Services;
 
 
-use Illuminate\Support\Facades\Log;
-
 class CartService
 {
     protected $feePercent = 21;
@@ -24,7 +22,18 @@ class CartService
      * @param $price
      * @return float
      */
-    public function getTotalPriceWithoutDPH($price) {
+    public function calcNettoPrice($price) {
         return $price - $this->getTotalDPH($price);
+    }
+
+    /**
+     * Calcs group product price
+     *
+     * @param $price
+     * @param $quantity
+     * @return mixed
+     */
+    public function calcGroupProductPrice($price, $quantity) {
+        return $price * $quantity;
     }
 }
