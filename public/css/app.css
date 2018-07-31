@@ -10698,6 +10698,15 @@ footer .container {
   border: 1px solid #888;
 }
 
+.cart .container .cart-products table .delete-product-row button {
+  background: none;
+  border: none;
+  color: #ff0000;
+  cursor: pointer;
+  font-weight: bold;
+  outline: none;
+}
+
 .cart .container .cart-products table .product-quantity div {
   display: inline-block;
 }
@@ -10722,23 +10731,39 @@ footer .container {
   margin-left: -5px;
 }
 
-.cart .container .cart-summary {
+.cart .container .cart-additional {
   margin-top: 10px;
+  overflow: hidden;
+}
+
+.cart .container .cart-additional .delivery {
+  float: left;
+}
+
+.cart .container .cart-additional .delivery p {
+  margin-bottom: 0;
+}
+
+.cart .container .cart-additional .delivery p input[type=radio] {
+  margin-right: 5px;
+}
+
+.cart .container .cart-additional .cart-summary {
   float: right;
   padding: 0;
 }
 
-.cart .container .cart-summary table {
+.cart .container .cart-additional .cart-summary table {
   width: 100%;
 }
 
-.cart .container .cart-summary table tr {
+.cart .container .cart-additional .cart-summary table tr {
   height: 50px;
   border: 1px solid #888;
 }
 
-.cart .container .cart-summary table td,
-.cart .container .cart-summary table th {
+.cart .container .cart-additional .cart-summary table td,
+.cart .container .cart-additional .cart-summary table th {
   padding: 5px;
 }
 

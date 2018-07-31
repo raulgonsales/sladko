@@ -23,5 +23,9 @@ Route::get('/cart', 'CartController@index')->name('cart');
 Route::group(['prefix' => 'ajax'], function () {
     Route::post('/loadReviews', 'AjaxReviewsController@loadReviews');
     Route::post('/cart/add', 'AjaxCartController@addProduct')->name('cart.add');
+    Route::post('/cart/delete', 'AjaxCartController@deleteProduct')->name('cart.delete');
+    Route::post('/cart/change', 'AjaxCartController@changeProductQuantity')->name('cart.change');
+    Route::post('/cart/delete-row', 'AjaxCartController@deleteProductRow')->name('cart.delete-row');
+    Route::post('/cart/set-delivery', 'AjaxCartController@setDeliveryMethod');
     Route::post('/cart/loadCartBlock', 'AjaxCartController@loadCartBlock')->name('cart.loadProducts');
 });
