@@ -78,15 +78,6 @@ class Cart
     }
 
     /**
-     * Gets all user`s cart products by sessionID from database
-     *
-     * @param $sessionId
-     */
-    public function getUserCart($sessionId) {
-
-    }
-
-    /**
      * Adds product to cart.
      *
      * @param $product
@@ -266,13 +257,6 @@ class Cart
                 'quantity' => $quantity
             ]
         ]);
-    }
-
-    /**
-     * Actualize product prices in cart
-     */
-    public function actualizeProductsPrice() {
-
     }
 
     /**

@@ -32,7 +32,8 @@ class AjaxCartController extends AjaxController
     protected $delivery;
 
     protected $cartBlockViewNames = [
-        'cartProducts' => 'includes.cart.cart-product-table'
+        'cartProducts' => 'includes.cart.cart-product-table',
+        'cartForm' => 'includes.cart.cart-form'
     ];
 
     /**
@@ -268,16 +269,10 @@ class AjaxCartController extends AjaxController
      * @return \Illuminate\Http\JsonResponse
      */
     public function loadCartProductsBlock() {
-        $retData = [];
+        $cart = new Cart(Session::get('cart'));
 
-        $oldCart = Session::get('cart');
-
-        $cart = new Cart($oldCart);
-        $cart->actualizeProductsPrice();
         $retData['cartProducts'] = $cart->get('products');
-
         $retData['deliveryMethods'] = $this->delivery->getActiveDeliveryMethods();
-
         if ($deliveryMethod = $cart->get('deliveryMethod')) {
             $retData['deliveryPrice'] = $deliveryMethod->price;
             $retData['chosenDeliveryMethod'] = $deliveryMethod->id;
@@ -290,21 +285,34 @@ class AjaxCartController extends AjaxController
         $retData['totalDPH'] = $this->cartService->getTotalDPH($cart->get('totalPrice'));
         $retData['totalNettoPrice'] = $this->cartService->calcNettoPrice($cart->get('totalPrice'));
 
-        try {
-            if (!view()->exists($this->cartBlockViewNames['cartProducts'])) {
-                throw new Exception("View " . $this->cartBlockViewNames['cartProducts'] . " does not exist");
-            }
+        return Response::json([
+            'success' => true,
+            'html' => view($this->cartBlockViewNames['cartProducts'], $retData)->render()
+        ]);
+    }
 
-            $returnHtml = view($this->cartBlockViewNames['cartProducts'], $retData)->render();
-        } catch (Exception $e) {
-            Log::emergency($e->getMessage());
-            return Response::json(['success' => false]);
-        }
+    /**
+     * Loads cart form
+     */
+    public function loadCartOrderFormBlock() {
+        Log::emergency(1);
+        $retData = [];
+
+        $cart = new Cart(Session::get('cart'));
 
         return Response::json([
             'success' => true,
-            'html' => $returnHtml
+            'html' => view($this->cartBlockViewNames['cartForm'], $retData)->render()
         ]);
+    }
+
+    /**
+     * Submits form in the cart.
+     *
+     * @param Request $request
+     */
+    public function submitForm(Request $request) {
+
     }
 
     /**
@@ -347,12 +355,5 @@ class AjaxCartController extends AjaxController
         return Response::json([
             'cartData' => $retData
         ]);
-    }
-
-    /**
-     * Load
-     */
-    public function loadCartOrderFormBlock() {
-        return 1;
     }
 }

@@ -121,6 +121,7 @@ function loadCartBlock(blockID) {
 
   promise.done(function (data) {
     if(data['success']) {
+      $('.cart-block').fadeOut();
       $('.cart .container .cart-blocks').html(data['html']);
       $('.cart-block').fadeIn();
     }
@@ -192,4 +193,8 @@ $(document).ready(function () {
   $('.cart-blocks').on('focus', '.delivery input[type=radio]', function () {
     setDeliveryMethod($(this).data('id'));
   });
+
+  $('.cart-blocks').on('click', '#submit_cart_products', function () {
+    loadCartBlock(1);
+  })
 });
