@@ -28,4 +28,5 @@ Route::group(['prefix' => 'ajax'], function () {
     Route::post('/cart/delete-row', 'AjaxCartController@deleteProductRow')->name('cart.delete-row');
     Route::post('/cart/set-delivery', 'AjaxCartController@setDeliveryMethod');
     Route::post('/cart/loadCartBlock', 'AjaxCartController@loadCartBlock')->name('cart.loadProducts');
+    Route::post('/cart/submit-form', 'AjaxCartController@submitForm')->name('cart.submit-form');
 });

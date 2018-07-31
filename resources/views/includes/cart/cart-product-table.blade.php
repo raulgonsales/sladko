@@ -52,26 +52,25 @@
             @endforeach
             </tbody>
         </table>
-    </div>
-    <div class="cart-additional">
-        <div class="delivery col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12">
-            <h4>Choose your delivery method</h4>
-            @foreach($deliveryMethods as $method)
-                <p>
-                    <input id="delivery_method_{{ $method->id }}"
-                           data-id="{{ $method->id }}"
-                           type="radio"
-                           name="delivery"
-                           @if(isset($chosenDeliveryMethod) && $chosenDeliveryMethod == $method->id) checked @endif>
-                    <label for="delivery_method_{{ $method->id }}" data-id="{{ $method->id }}">
-                        {{ $method->name }} ({{ $method->price }} Kc)
-                    </label>
-                </p>
-            @endforeach
-        </div>
-        <div class="cart-summary col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12" id="cart_summary">
-            <table>
-                <tbody>
+        <div class="cart-additional">
+            <div class="delivery col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12">
+                <h4>Choose your delivery method</h4>
+                @foreach($deliveryMethods as $method)
+                    <p>
+                        <input id="delivery_method_{{ $method->id }}"
+                               data-id="{{ $method->id }}"
+                               type="radio"
+                               name="delivery"
+                               @if(isset($chosenDeliveryMethod) && $chosenDeliveryMethod == $method->id) checked @endif>
+                        <label for="delivery_method_{{ $method->id }}" data-id="{{ $method->id }}">
+                            {{ $method->name }} ({{ $method->price }} Kc)
+                        </label>
+                    </p>
+                @endforeach
+            </div>
+            <div class="cart-summary col-xl-4 col-lg-3 col-md-12 col-sm-12 col-12" id="cart_summary">
+                <table>
+                    <tbody>
                     <tr>
                         <th>Delivery</th>
                         <td class="delivery-price"><span>{{ $deliveryPrice }}</span> Kc</td>
@@ -88,11 +87,12 @@
                         <th>Total price</th>
                         <td class="total-cart-price"><span>{{ $totalPrice }}</span> Kc</td>
                     </tr>
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
         </div>
-    </div>
-    <div class="control">
-        <button>OK</button>
+        <div class="control">
+            <button id="submit_cart_products">OK</button>
+        </div>
     </div>
 @endif
