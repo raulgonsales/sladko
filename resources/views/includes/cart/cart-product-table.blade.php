@@ -1,4 +1,4 @@
-@if(!count($cartProducts))
+@if(!isset($cartProducts) || !count($cartProducts))
     <div class="alert alert-info">
         No products in cart!
     </div>
