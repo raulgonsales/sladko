@@ -10596,7 +10596,7 @@ footer .container {
 .products .container .products-wrapper .product-wrapper {
   float: left;
   margin-bottom: 40px;
-  min-height: 400px;
+  height: 400px;
   padding: 20px 0;
   -webkit-transition: 0.3s;
   transition: 0.3s;
